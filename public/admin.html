@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0e45">
+<title>Quiz Night · Admin</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/host.css">
+<style>
+  main { max-width: 1200px; }
+  section.box { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 18px; margin-bottom: 18px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 13px; opacity: .9; }
+  label.f input { font-size: 16px; padding: 9px; }
+  .team-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .team-row input[type=text] { font-size: 17px; padding: 9px; }
+  .team-row input[type=color] { width: 48px; height: 44px; border: 0; background: none; padding: 0; }
+  table.sets { width: 100%; border-collapse: collapse; }
+  table.sets td { padding: 10px 6px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .badge { background: var(--good); color: #002; font-size: 12px; padding: 2px 8px; border-radius: 10px; font-weight: 700; margin-left: 6px; }
+  .tabs { display: flex; gap: 6px; margin: 10px 0; flex-wrap: wrap; }
+  .tabs button { background: rgba(255,255,255,.08); border: 0; color: var(--cream); padding: 8px 16px; border-radius: 10px; }
+  .tabs button.on { background: var(--gold); color: var(--ink); font-weight: 700; }
+  .cat-ed { background: var(--board-blue-lo); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+  .cat-ed .hd { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .cat-ed .hd input { font-family: var(--font-cat); font-weight: 700; text-transform: uppercase; font-size: 18px; padding: 8px; }
+  .clue-ed { display: grid; grid-template-columns: 90px 1fr 260px 54px 36px; gap: 6px; margin-bottom: 6px; align-items: start; }
+  .clue-ed input, .clue-ed textarea { font: inherit; font-size: 14px; padding: 7px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2); background: #050729; color: var(--cream); width: 100%; }
+  .clue-ed textarea { resize: vertical; min-height: 38px; }
+  .clue-ed .dd { display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 12px; height: 36px; }
+  .clue-head { font-size: 11px; text-transform: uppercase; opacity: .6; }
+  @media (max-width: 760px) { .clue-ed { grid-template-columns: 70px 1fr; } .clue-ed .ans { grid-column: 1 / -1; } }
+  .msgs { font-size: 14px; }
+  .msgs .e { color: #ff9a9a; } .msgs .w { color: #ffd98a; }
+  .drop { border: 2px dashed rgba(255,255,255,.3); border-radius: 12px; padding: 18px; text-align: center; }
+  .drop.over { border-color: var(--gold); background: rgba(245,184,46,.1); }
+  pre.fmt { background: #000; padding: 12px; border-radius: 10px; overflow: auto; font-size: 13px; }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="brand">🪔 Admin</div>
+  <div class="phase" id="phase"></div>
+  <div class="bar-actions">
+    <a href="/host" class="btn small ghost">Host</a>
+    <a href="/tv" class="btn small ghost" target="_blank">TV</a>
+  </div>
+</header>
+<div id="toast" class="toast hidden"></div>
+<main>
+  <section class="box">
+    <h2>Question sets</h2>
+    <table class="sets" id="sets"></table>
+    <div class="row">
+      <div class="drop" id="drop" style="flex:1">
+        <b>Upload a CSV</b> — drag a file here or
+        <label class="btn small" style="margin-left:6px">Choose file<input type="file" id="file" accept=".csv,text/csv" hidden></label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn small ghost" id="newSet">+ New blank set</button>
+      <a class="btn small ghost" href="/api/sets/TEMPLATE/download">Download CSV template</a>
+    </div>
+    <details><summary class="hint">CSV format</summary>
+<pre class="fmt">round,category,value,clue,answer,daily_double
+1,Diwali 101,200,Diwali is known as the festival of these,Lights,
+1,Diwali 101,400,"Commas are fine inside ""quotes""",Diyas,
+2,Sweets,800,Round 2 clue,Answer,yes      &lt;- pins a Daily Double
+final,Mythology,,The final clue,The answer,</pre>
+      <p class="hint">round = 1, 2 or final · value is optional (blank = 200/400/… by position) · 6 categories × 5 clues fits the TV best ·
+      If any clue in a round has daily_double = yes, those are used; otherwise Daily Doubles are placed randomly (1 in round 1, 2 in round 2).</p>
+    </details>
+  </section>
+
+  <section class="box hidden" id="editor">
+    <h2>Editing: <span id="edName"></span></h2>
+    <div class="tabs" id="tabs"></div>
+    <div id="edBody"></div>
+    <div class="msgs" id="edMsgs"></div>
+    <div class="row">
+      <button class="btn" id="edSave">Save</button>
+      <button class="btn ghost" id="edSaveLoad">Save &amp; use for the game</button>
+      <button class="btn ghost" id="edClose">Close editor</button>
+    </div>
+  </section>
+
+  <section class="box" id="teams">
+    <h2>Teams</h2>
+    <div id="teamRows"></div>
+    <div class="row">
+      <button class="btn small ghost" id="addTeam">+ Add team</button>
+      <button class="btn small" id="saveTeams">Save teams</button>
+    </div>
+    <p class="hint">2–4 teams works best. Renaming keeps scores; players pick their team on their phone.</p>
+  </section>
+
+  <section class="box">
+    <h2>Game settings</h2>
+    <div class="grid2">
+      <label class="f">Title on the TV <input type="text" id="cfgTitle"></label>
+      <label class="f">Daily Double label <input type="text" id="cfgDD"></label>
+      <label class="f">Final round label <input type="text" id="cfgFinal"></label>
+      <label class="f">Round 1 label <input type="text" id="cfgR1"></label>
+      <label class="f">Round 2 label <input type="text" id="cfgR2"></label>
+      <label class="f">Answer timer after buzz (sec, 0 = off) <input type="number" id="cfgAns" min="0" max="60"></label>
+      <label class="f">Final think timer (sec) <input type="number" id="cfgFinalSec" min="5" max="300"></label>
+      <label class="f">Daily Doubles in round 1 <input type="number" id="cfgDD1" min="0" max="6"></label>
+      <label class="f">Daily Doubles in round 2 <input type="number" id="cfgDD2" min="0" max="6"></label>
+    </div>
+    <div class="row"><button class="btn small" id="saveCfg">Save settings</button></div>
+    <p class="hint">Daily Double counts apply the next time a game starts.<br>
+      Custom sounds: put files in <code>public/sounds/</code> named <code>think</code>, <code>daily-double</code>, <code>board-fill</code>, <code>correct</code>, <code>wrong</code>, <code>times-up</code>, <code>fanfare</code>, <code>buzz-in</code>, <code>reveal</code> (.mp3/.ogg/.wav). Custom fonts: <code>public/fonts/clue.woff2</code>, <code>value.woff2</code>, <code>category.woff2</code>. Reload the TV after adding.</p>
+  </section>
+</main>
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>

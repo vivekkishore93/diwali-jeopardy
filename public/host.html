@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e45">
+<title>Quiz Night · Host</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/host.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand">🪔 <span id="title">Host</span></div>
+  <div class="phase" id="phase"></div>
+  <div class="bar-actions">
+    <button id="undoBtn" class="btn small ghost" title="Undo (U)">↶ Undo</button>
+    <button id="muteBtn" class="btn small ghost" title="Mute TV sound">🔊</button>
+    <a href="/admin" class="btn small ghost" target="_blank">Admin</a>
+  </div>
+</header>
+<div id="toast" class="toast hidden"></div>
+<div id="conn" class="conn hidden">Reconnecting…</div>
+
+<main id="main"></main>
+
+<section class="scores">
+  <h3>Scores <small>tap a team to give it control · ± to fix scores</small></h3>
+  <div id="scores"></div>
+</section>
+
+<footer class="foot">
+  <button id="nextRoundBtn" class="btn ghost">Next round →</button>
+  <button id="endBtn" class="btn ghost danger">End game</button>
+  <button id="resetBtn" class="btn ghost danger">Reset to lobby</button>
+</footer>
+
+<script type="module" src="/js/host.js"></script>
+</body>
+</html>

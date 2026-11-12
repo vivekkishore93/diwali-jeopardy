@@ -1,0 +1,41 @@
+/* Shared fonts (served locally so the game works offline) and palette. */
+@font-face { font-family: 'Anton'; src: url('/vendor/fonts/anton/files/anton-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Oswald'; src: url('/vendor/fonts/oswald/files/oswald-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: block; }
+@font-face { font-family: 'Oswald'; src: url('/vendor/fonts/oswald/files/oswald-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: block; }
+@font-face { font-family: 'Merriweather'; src: url('/vendor/fonts/merriweather/files/merriweather-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: block; }
+@font-face { font-family: 'Merriweather'; src: url('/vendor/fonts/merriweather/files/merriweather-latin-900-normal.woff2') format('woff2'); font-weight: 900; font-display: block; }
+@font-face { font-family: 'Yatra One'; src: url('/vendor/fonts/yatra-one/files/yatra-one-latin-400-normal.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'Poppins'; src: url('/vendor/fonts/poppins/files/poppins-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Poppins'; src: url('/vendor/fonts/poppins/files/poppins-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+@font-face { font-family: 'Poppins'; src: url('/vendor/fonts/poppins/files/poppins-latin-800-normal.woff2') format('woff2'); font-weight: 800; }
+
+:root {
+  /* Classic quiz-board blues */
+  --board-blue: #0a1bb8;
+  --board-blue-hi: #1630d6;
+  --board-blue-lo: #06108a;
+  --clue-blue: #0b1aa6;
+  --grid: #000;
+  /* Diwali accents */
+  --gold: #F5B82E;
+  --gold-hi: #FFD877;
+  --saffron: #FF7A1A;
+  --magenta: #D6246E;
+  --maroon: #6E0F1F;
+  --cream: #FFF4DC;
+  --ink: #070a3a;
+  --good: #3ddc84;
+  --bad: #ff4d4d;
+
+  --font-value: 'ValueOverride', 'Anton', 'Oswald', Impact, sans-serif;
+  --font-cat: 'CategoryOverride', 'Oswald', 'Anton', 'Arial Narrow', sans-serif;
+  --font-clue: 'ClueOverride', 'Merriweather', Georgia, serif;
+  --font-title: 'Yatra One', 'Merriweather', serif;
+  --font-ui: 'Poppins', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--font-ui); background: var(--ink); color: var(--cream); }
+button { font: inherit; cursor: pointer; }
+.hidden { display: none !important; }

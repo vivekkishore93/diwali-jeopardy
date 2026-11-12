@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Night · TV</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/tv.css">
+</head>
+<body>
+<div id="stage">
+  <div class="rangoli-frame"></div>
+
+  <!-- Lobby -->
+  <section id="lobby" class="layer">
+    <h1 class="title" id="lobbyTitle">Diwali Quiz Night</h1>
+    <div class="lobby-row">
+      <div class="qr-card">
+        <img id="qr" alt="QR code to join">
+        <div class="qr-url" id="playUrl"></div>
+        <div class="qr-hint">Scan to join your team &amp; buzz in</div>
+      </div>
+      <div class="lobby-teams" id="lobbyTeams"></div>
+    </div>
+    <div class="lobby-wait">Waiting for the host to start the game…</div>
+  </section>
+
+  <!-- Board -->
+  <section id="board" class="layer">
+    <div id="grid"></div>
+  </section>
+
+  <!-- Score podiums (shown with board & clue) -->
+  <footer id="podiums"></footer>
+  <img id="miniQr" alt="">
+
+  <!-- Clue -->
+  <section id="clue" class="layer panel-blue">
+    <div class="clue-head"><span id="clueCat"></span><span id="clueValue"></span></div>
+    <div class="clue-text" id="clueText"></div>
+    <div class="clue-answer" id="clueAnswer"></div>
+    <div class="buzz-bar" id="buzzBar">
+      <div class="buzz-team" id="buzzTeam"></div>
+      <div class="diyas" id="answerDiyas"></div>
+    </div>
+    <div class="buzz-open" id="buzzOpen">BUZZERS OPEN</div>
+    <div class="result-flash" id="resultFlash"></div>
+  </section>
+
+  <!-- Daily Double -->
+  <section id="dd" class="layer panel-blue">
+    <div class="dd-splash" id="ddSplash"><span id="ddLabel">DAILY DOUBLE</span></div>
+    <div class="dd-wager" id="ddWager"></div>
+  </section>
+
+  <!-- Round intro splash -->
+  <section id="intro" class="layer">
+    <div class="intro-text" id="introText"></div>
+  </section>
+
+  <!-- Final -->
+  <section id="final" class="layer panel-blue">
+    <div class="final-label" id="finalLabel">FINAL ROUND</div>
+    <div class="final-cat" id="finalCat"></div>
+    <div class="final-clue" id="finalClue"></div>
+    <div class="diyas final-diyas" id="finalDiyas"></div>
+    <div class="final-chips" id="finalChips"></div>
+    <div class="final-spot" id="finalSpot"></div>
+  </section>
+
+  <!-- Game over -->
+  <section id="gameover" class="layer">
+    <div class="go-label">WINNER</div>
+    <div class="go-names" id="goNames"></div>
+    <div class="go-final" id="goFinal"></div>
+    <div class="go-scores" id="goScores"></div>
+  </section>
+
+  <canvas id="fx"></canvas>
+</div>
+
+<div id="startOverlay">
+  <div>
+    <div class="so-title">🪔 TV Screen</div>
+    <p>Click anywhere to start<br><small>(turns on sound and full screen — press <b>F</b> any time to toggle full screen)</small></p>
+  </div>
+</div>
+<div id="conn" class="hidden">Reconnecting…</div>
+
+<script type="module" src="/js/tv.js"></script>
+</body>
+</html>

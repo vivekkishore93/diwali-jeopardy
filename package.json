@@ -1,0 +1,25 @@
+{
+  "name": "diwali-jeopardy",
+  "version": "1.0.0",
+  "description": "Diwali party quiz-board game for your home network: TV board, host controls, phone buzzers.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/merriweather": "^5.3.0",
+    "@fontsource/oswald": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "@fontsource/yatra-one": "^5.3.0",
+    "qrcode": "^1.5.4",
+    "ws": "^8.22.2"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

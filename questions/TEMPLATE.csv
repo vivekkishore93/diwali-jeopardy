@@ -1,0 +1,9 @@
+round,category,value,clue,answer,daily_double
+1,Category A,200,Clue text goes here,Answer goes here,
+1,Category A,400,"Use quotes if your clue has commas, like this",Answer,
+1,Category A,600,Clue,Answer,
+1,Category A,800,Clue,Answer,
+1,Category A,1000,Clue,Answer,
+2,Category B,400,Round 2 clue,Answer,
+2,Category B,800,"Put yes in the last column to force a Daily Double here",Answer,yes
+final,Final Category,,The final clue,The final answer,

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Night</title>
+<link rel="stylesheet" href="/css/common.css">
+<style>
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px;
+    background: radial-gradient(ellipse at 50% 0%, #1a1f7a, #0b0e45 60%, #05061f); text-align: center; }
+  h1 { font-family: var(--font-title); font-weight: 400; color: var(--gold); font-size: clamp(36px, 8vw, 72px); margin: 0; }
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; width: min(900px, 100%); }
+  a { display: block; padding: 22px; border-radius: 16px; background: rgba(255,255,255,.06); color: var(--cream); text-decoration: none; border: 1px solid rgba(245,184,46,.35); }
+  a b { display: block; font-family: var(--font-cat); font-size: 26px; text-transform: uppercase; color: var(--gold-hi); }
+  a:hover { background: rgba(245,184,46,.12); }
+</style>
+</head>
+<body>
+  <h1>🪔 Quiz Night</h1>
+  <div class="links">
+    <a href="/play"><b>📱 Play</b>Join a team &amp; buzz in</a>
+    <a href="/tv"><b>📺 TV</b>Open on the TV laptop, full screen</a>
+    <a href="/host"><b>🎤 Host</b>Run the game, see answers</a>
+    <a href="/admin"><b>⚙️ Admin</b>Questions, teams, settings</a>
+  </div>
+</body>
+</html>
